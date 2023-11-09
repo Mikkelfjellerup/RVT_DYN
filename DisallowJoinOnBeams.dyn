@@ -1,0 +1,69 @@
+<Workspace Version="1.2.2.373" X="60.8641516766606" Y="-27.0626230609186" zoom="1.09871222902565" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="ae071ad6-91a9-48c0-aa12-ad6058a694db" type="PythonNodeModels.PythonNode" nickname="Python: Disallow Joins on Beams" x="602.344256046469" y="374.388158798727" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
+      <PortInfo index="0" default="False" />
+      <Script>import clr
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+# Unwrap
+input = UnwrapElement( IN[0] )
+elements = []
+#force input into list
+try:
+    for e in input:
+        if e.Category.Name == "Structural Framing":
+            elements.append(e)
+except:
+    if input.Category.Name == "Structural Framing": 
+        elements.append(input)
+    
+
+    
+# Start Transaction
+doc = DocumentManager.Instance.CurrentDBDocument
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+for e in elements:
+    Autodesk.Revit.DB.Structure.StructuralFramingUtils.DisallowJoinAtEnd(e, 0)
+    Autodesk.Revit.DB.Structure.StructuralFramingUtils.DisallowJoinAtEnd(e, 1)
+
+# End Transaction
+TransactionManager.Instance.TransactionTaskDone()
+
+# Wrap
+OUT = elements</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Nodes.DSModelElementsSelection guid="66dbdfa8-1580-40c5-8186-af9aae51578f" type="Dynamo.Nodes.DSModelElementsSelection" nickname="Select Model Elements" x="139.6" y="376.4" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <instance id="cf5e31ee-58ff-40ae-8e50-af5bdee3ea4d-0004c2f1" />
+    </Dynamo.Nodes.DSModelElementsSelection>
+    <DSRevitNodesUI.ElementsOfCategory guid="75d8905d-530f-4b0d-8ffa-1b18bf244333" type="DSRevitNodesUI.ElementsOfCategory" nickname="All Elements of Category" x="320.552939539258" y="201.080026646798" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+    </DSRevitNodesUI.ElementsOfCategory>
+    <DSRevitNodesUI.Categories guid="4a42b932-5bbc-432b-a22d-3421e4a71861" type="DSRevitNodesUI.Categories" nickname="Categories" x="51.6" y="202.4" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false" index="521:StructuralFraming" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="66dbdfa8-1580-40c5-8186-af9aae51578f" start_index="0" end="ae071ad6-91a9-48c0-aa12-ad6058a694db" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="4a42b932-5bbc-432b-a22d-3421e4a71861" start_index="0" end="75d8905d-530f-4b0d-8ffa-1b18bf244333" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>
