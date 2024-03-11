@@ -1,0 +1,212 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "171121_Grid-SwitchTo2DExtents",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [],
+      "Id": "0c1edf1e0001455db6307c63c05118bf",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "398a092531764e7aafec69b0165620e3",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\nclr.AddReference('RevitAPI')\nfrom Autodesk.Revit.DB import *\nimport Autodesk\n\nclr.AddReference(\"RevitServices\")\nimport RevitServices\nfrom RevitServices.Persistence import DocumentManager\nfrom RevitServices.Transactions import TransactionManager\n\ndoc = DocumentManager.Instance.CurrentDBDocument\nuiapp = DocumentManager.Instance.CurrentUIApplication\napp = uiapp.Application\n\na = UnwrapElement(IN[0])\nv = UnwrapElement(IN[1])\nTransactionManager.Instance.EnsureInTransaction(doc)\nfor i in a:\n#    i.SetDatumExtentType(DatumEnds.End0,v, DatumExtentType.Model)\n    i.SetDatumExtentType(DatumEnds.End0,v, DatumExtentType.ViewSpecific)\n#    i.SetDatumExtentType(DatumEnds.End1,v, DatumExtentType.Model)\n    i.SetDatumExtentType(DatumEnds.End1,v, DatumExtentType.ViewSpecific)\nTransactionManager.Instance.TransactionTaskDone()\n\nOUT = v",
+      "VariableInputPorts": true,
+      "Id": "ce47533d0ca1495daef340e455216ef3",
+      "Inputs": [
+        {
+          "Id": "c91e15de144a420d859b4f05f73c232d",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fc05a1ae006543c38773416b12c7890a",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c47439e07f6048009fdbec80fb4c7d2b",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "58849545-7510-4baf-99da-98c0b1e184fd",
+      "FunctionType": "Graph",
+      "NodeType": "FunctionNode",
+      "Id": "c75c547b5fd04fa19833d93f381c3719",
+      "Inputs": [
+        {
+          "Id": "cc2a590dcd12450cb0ab3b4fac3117c7",
+          "Name": "refresh",
+          "Description": "bool\nDefault value : true (disabled)",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f64600f42ecf45d68ace288622bddb87",
+          "Name": "view",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Selects the current document's active view. Supports more view types"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "5cd4e442af5146e5989b6a769c974d6b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d92eef53b98744889443ad1cfa21acef",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "398a092531764e7aafec69b0165620e3",
+      "End": "c91e15de144a420d859b4f05f73c232d",
+      "Id": "7272f0c3d6814ec9aeca2ecc4e91244c"
+    },
+    {
+      "Start": "f64600f42ecf45d68ace288622bddb87",
+      "End": "fc05a1ae006543c38773416b12c7890a",
+      "Id": "c9e0b9c421de4e5a9b9dcca4d0783822"
+    },
+    {
+      "Start": "d92eef53b98744889443ad1cfa21acef",
+      "End": "cc2a590dcd12450cb0ab3b4fac3117c7",
+      "Id": "07213178cfd04415b0c25b5ded00b7cc"
+    }
+  ],
+  "Dependencies": [
+    "58849545-7510-4baf-99da-98c0b1e184fd"
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Select Model Elements",
+        "Id": "0c1edf1e0001455db6307c63c05118bf",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1202.22865593814,
+        "Y": -2.31728760872602
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "ce47533d0ca1495daef340e455216ef3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1574.83357959476,
+        "Y": 1.82664836245604
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Active View",
+        "Id": "c75c547b5fd04fa19833d93f381c3719",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1319.90691350064,
+        "Y": 251.478969640831
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "5cd4e442af5146e5989b6a769c974d6b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1142.7462608591463,
+        "Y": 256.54390095569704
+      }
+    ],
+    "Annotations": [],
+    "X": -1063.5402459049378,
+    "Y": 179.75327539137641,
+    "Zoom": 1.0422648180387719
+  }
+}
