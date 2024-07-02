@@ -1,0 +1,224 @@
+{
+  "Uuid": "1373fe39-b7af-43c0-989c-c1aa4049a5c3",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "Dimensionline_Center_MF",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "bacd05ac03ab4b95ab1676fddbd3727a",
+      "Name": "Select Model Elements",
+      "Type": "selection",
+      "Type2": "hostSelection",
+      "Value": "7d15bf91-2cd3-4200-aca4-1a770fb0e860-0018536e,7d15bf91-2cd3-4200-aca4-1a770fb0e860-0018539f,7d15bf91-2cd3-4200-aca4-1a770fb0e860-001853a6,7d15bf91-2cd3-4200-aca4-1a770fb0e860-001853ad",
+      "Description": "Select multiple elements from the Revit document.",
+      "SelectedIndex": 0
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "7d15bf91-2cd3-4200-aca4-1a770fb0e860-0018536e",
+        "7d15bf91-2cd3-4200-aca4-1a770fb0e860-0018539f",
+        "7d15bf91-2cd3-4200-aca4-1a770fb0e860-001853a6",
+        "7d15bf91-2cd3-4200-aca4-1a770fb0e860-001853ad"
+      ],
+      "Id": "bacd05ac03ab4b95ab1676fddbd3727a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c6572571508f4c76bb376f2312d5c595",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select multiple elements from the Revit document."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "Id": "fa54d1e0ffc0496592bb2c18472039b8",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "6ec53285aba8407f977b4784e1257385",
+          "Name": "dimension",
+          "Description": "The dimension to center text on line for.\n\nDimension",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "31af538b3525431e871a8ad24be7bc56",
+          "Name": "dimension",
+          "Description": "The dimension.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "FunctionSignature": "Rhythm.Revit.Elements.Dimensions.CenterTextOnLine@Revit.Elements.Dimension",
+      "Replication": "Auto",
+      "Description": "*BETA* This node will center the dimension's text on the line.\n\nDimensions.CenterTextOnLine (dimension: Dimension): void"
+    },
+    {
+      "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "7d15bf91-2cd3-4200-aca4-1a770fb0e860-00185444"
+      ],
+      "Id": "468b28bd1fc9487085270cf9d54895a3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "eba8a1b79908455d98003f74d8b17b2f",
+          "Name": "Element",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select a model element from the document."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "eba8a1b79908455d98003f74d8b17b2f",
+      "End": "6ec53285aba8407f977b4784e1257385",
+      "Id": "b9ffd6fe3a1d43a8b6535fa820a468bf",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "RhythmRevit.dll",
+      "ReferenceType": "ZeroTouch",
+      "Nodes": [
+        "fa54d1e0ffc0496592bb2c18472039b8"
+      ]
+    }
+  ],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.19",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "6.1",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.19.3.6394",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "bacd05ac03ab4b95ab1676fddbd3727a",
+        "Name": "Select Model Elements",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 422.05681454182024,
+        "Y": 313.71161768652394
+      },
+      {
+        "Id": "fa54d1e0ffc0496592bb2c18472039b8",
+        "Name": "ʳʰʸᵗʰᵐ|Dimensions.CenterTextOnLine",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 794.0,
+        "Y": 250.44444444444446
+      },
+      {
+        "Id": "468b28bd1fc9487085270cf9d54895a3",
+        "Name": "Select Model Element",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 426.62419284616919,
+        "Y": 97.038025700009172
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "89f40543a7b24783a2b9eeb289f853f4",
+        "Title": "Text CenterLine",
+        "DescriptionText": "Revit Facebook Group",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "fa54d1e0ffc0496592bb2c18472039b8"
+        ],
+        "HasNestedGroups": false,
+        "Left": 784.0,
+        "Top": 177.33333333333334,
+        "Width": 352.44444444444434,
+        "Height": 205.44444444444443,
+        "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 250.44444444444446,
+        "InitialHeight": 162.33333333333331,
+        "TextblockHeight": 63.111111111111114,
+        "Background": "#FF71C6A8"
+      }
+    ],
+    "X": -182.40429820293855,
+    "Y": -51.560907926538562,
+    "Zoom": 0.80821986639302912
+  }
+}
